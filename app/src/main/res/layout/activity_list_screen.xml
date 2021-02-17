@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    style="@style/LayoutItem"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/AppBar"
+        android:theme="@style/Theme.Infosys.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.Infosys.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

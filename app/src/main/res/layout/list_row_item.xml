@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    style="@style/AppBar.View">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleText"
+        style="@style/TextViewStyle.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/descriptionText"
+        style="@style/TextViewStyle.Small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image"
+        style="@style/Image"
+        app:layout_constraintEnd_toStartOf="@id/arrowImage"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/arrowImage"
+        style="@style/ArrowImage"
+        app:srcCompat="@drawable/ic_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

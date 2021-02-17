@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Infosys</string>
+    <string name="failure_toast">Please try after some time</string>
+    <string name="no_internet_toast">Internet not available</string>
+    <string name="database">"Canada_database"</string>
+    <string name="test_title">"Flag"</string>
+    <string name="test_des">Hello World</string>
+    <string name="test_image">http://images.findicons.com/files/icons/662/world_flag/128/flag_of_canada.png</string>
+    <string name="title">Canada</string>
+    <string name="test_package">com.lediya.inmobi</string>
+</resources>

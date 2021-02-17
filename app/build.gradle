@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.lediya.infosys"
+        minSdkVersion 14
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
+
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "androidx.core:core-ktx:$kotlinCore"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:$googleMaterial"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$squareUpVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$recyclerViewVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$naviagtionVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$naviagtionVersion"
+    kapt "androidx.room:room-compiler:$roomCompilerVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomCompilerVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.test:core:$testRunnerVersion"
+    testCompile "org.hamcrest:hamcrest-library:$hamcrestVersion"
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "androidx.test:core-ktx:$coreTestVersion"
+    testImplementation "androidx.test.ext:junit-ktx:$jUnitVersionKtx"
+    testImplementation "androidx.test.ext:truth:$googleMaterial"
+    testImplementation "com.google.truth:truth:$googleTestTruth"
+    androidTestImplementation "androidx.test:rules:$testRunnerVersion"
+    androidTestImplementation "android.arch.core:core-testing:$archTestVersion"
+    androidTestImplementation "androidx.test.ext:junit:$jUnitTestVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$expressoVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCore"
+}
