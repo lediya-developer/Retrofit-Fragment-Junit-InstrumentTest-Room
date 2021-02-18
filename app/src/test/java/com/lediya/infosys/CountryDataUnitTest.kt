@@ -2,6 +2,7 @@ package com.lediya.infosys
 
 import android.content.Context
 import android.os.Build
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,6 +10,9 @@ import com.lediya.infosys.communication.RestClient
 import com.lediya.infosys.data.AppDatabase
 import com.lediya.infosys.model.CountryListResponse
 import com.lediya.infosys.model.Row
+import com.lediya.infosys.utility.Utils
+import com.lediya.infosys.view.ListScreenActivity
+import com.lediya.infosys.view.ListScreenFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -17,13 +21,15 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
-import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
 import retrofit2.Response
 import java.io.IOException
+
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -44,7 +50,6 @@ class CountryDataUnitTest {
         db = Room.inMemoryDatabaseBuilder(
             context, AppDatabase::class.java
         ).build()
-
     }
 
     @After
@@ -103,5 +108,78 @@ class CountryDataUnitTest {
             assertEquals(modelData, afterRetrievePostData)
         }
     }
-
+    /**
+     * Check response is successful */
+    @Test
+    fun checkResponseSuccessful()= testDispatcher.runBlockingTest {
+        testScope.launch(Dispatchers.IO) {
+            try {
+                    val response: Response<CountryListResponse> =
+                        RestClient.getInstance().getList()
+                    assertTrue(response.isSuccessful)
+                    assertEquals(200, response.code())
+            } catch (exception: IOException) {
+            }
+        }
+    }
+    /**
+     * checks title use case*/
+    @Test
+    fun checkTitle()=testDispatcher.runBlockingTest {
+        testScope.launch(Dispatchers.IO) {
+            val activity = Robolectric.setupActivity(ListScreenActivity::class.java)
+            assertNotEquals(
+                context.getString(R.string.title),
+                activity.supportActionBar?.title.toString().trim()
+            )
+            assertEquals(
+                context.getString(R.string.app_name),
+                activity.supportActionBar?.title.toString().trim()
+            )
+        }
+    }
+    /**check connectivity not available use case*/
+    @Test
+    fun checkNotInternet() = testDispatcher.runBlockingTest {
+        testScope.launch (Dispatchers.IO ){
+            val fragment =  ListScreenFragment()
+            assertFalse(Utils.isConnectedToNetwork(context))
+            assertEquals(context.getString(R.string.no_internet_toast),
+                fragment.activity?.findViewById<AppCompatTextView>(R.id.errorTextData)?.text
+            )
+        }
+    }
+    /**check connectivity available use case*/
+    @Test
+    fun checkInternet() = testDispatcher.runBlockingTest {
+        testScope.launch (Dispatchers.IO ){
+            assertTrue(Utils.isConnectedToNetwork(context))
+            downloadData()
+        }
+    }
+    /**check connectivity not available and failed error message */
+    @Test
+    fun checkFailedToast() = testDispatcher.runBlockingTest {
+        testScope.launch (Dispatchers.IO ){
+            val fragment =  ListScreenFragment()
+            assertFalse(Utils.isConnectedToNetwork(context))
+            assertEquals(context.getString(R.string.failure_toast),
+                fragment.activity?.findViewById<AppCompatTextView>(R.id.errorTextData)?.text
+            )
+        }
+    }
+    /**check data not available in local database with connectivity not available and connectivity available */
+    @Test
+    @Throws(Exception::class)
+    fun noDataFromDatabase() = testDispatcher.runBlockingTest {
+        testScope.launch(Dispatchers.IO) {
+            val countryDao = db.countryDao
+            val afterRetrievePostData = countryDao.getCountryData()
+            if (afterRetrievePostData==null||afterRetrievePostData.equals(" ")){
+                checkNotInternet()
+            }else{
+                downloadData()
+            }
+        }
+    }
 }

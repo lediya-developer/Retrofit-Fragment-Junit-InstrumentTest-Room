@@ -17,38 +17,38 @@ class MainRepository(private var countryDao: CountryDao) {
     private val _fetchResult = MutableLiveData<Event<ResultImp>>()
     val fetchResult: LiveData<Event<ResultImp>>
         get() = _fetchResult
+    private val _getResult = MutableLiveData<Event<ResultImp>>()
+    val getResult: LiveData<Event<ResultImp>>
+        get() = _getResult
 
     /**
      * The method used to get country data from backend, request perform and set the result  */
     suspend fun getCountryDataFromServer() {
-        _fetchResult.postValue(Event(ResultImp(ResultType.PENDING)))
+        _getResult.postValue(Event(ResultImp(ResultType.PENDING)))
         try {
             val response = RestClient.getInstance().getList()
             if (response.body() != null) {
                 response.body()?.let {
                     insertUpdatedCountryData(it)
                 }
-
             } else {
-                _fetchResult.postValue(Event(ResultImp(ResultType.FAILURE)))
+                _getResult.postValue(Event(ResultImp(ResultType.FAILURE)))
             }
         } catch (e: Exception) {
-            _fetchResult.postValue(Event(ResultImp(ResultType.FAILURE)))
+            _getResult.postValue(Event(ResultImp(ResultType.FAILURE)))
         }
     }
 
     /** insert country data to local database*/
     private suspend fun insertUpdatedCountryData(countryData: CountryListResponse) {
          countryDao.insertCountryData(countryData)
-        _fetchResult.postValue(Event(ResultImp(ResultType.SUCCESS)))
+        _getResult.postValue(Event(ResultImp(ResultType.SUCCESS)))
     }
 
     /** fetch country data from local database*/
     suspend fun fetchCountryDataFromDatabase() {
         val countryData = countryDao.getCountryData()
-        if (countryData != null && !countryData
-                .equals(" ") && !countryData.rows.isNullOrEmpty()
-        ) {
+        if (countryData!=null&&!countryData.equals(" ") && !countryData.rows.isNullOrEmpty()) {
             countryList.postValue((Event(countryData.rows)))
             title.value = countryData.title
         } else {

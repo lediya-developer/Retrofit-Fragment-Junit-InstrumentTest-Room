@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
-        style="@style/LayoutItem">
+        style="@style/LayoutItem"
+        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/purple_700"
+       >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,13 +17,11 @@
                 android:id="@+id/recyclerView"
                 android:background="@color/ash_color"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="@style/Progressbar"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

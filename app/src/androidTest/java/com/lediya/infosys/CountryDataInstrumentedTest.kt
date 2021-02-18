@@ -8,8 +8,8 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.lediya.infosys.communication.RestClient
 import com.lediya.infosys.data.AppDatabase
@@ -20,13 +20,12 @@ import com.lediya.infosys.utility.Utils
 import com.lediya.infosys.view.ListScreenActivity
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Test
-import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
 import retrofit2.Response
 import java.io.IOException
-import java.lang.AssertionError
 
 /**
  * Instrumented test, which will execute on an Android device.

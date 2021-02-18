@@ -6,6 +6,6 @@
     <string name="test_title">"Flag"</string>
     <string name="test_des">Hello World</string>
     <string name="test_image">http://images.findicons.com/files/icons/662/world_flag/128/flag_of_canada.png</string>
-    <string name="title">Canada</string>
+    <string name="title">About Canada</string>
     <string name="test_package">com.lediya.inmobi</string>
 </resources>
